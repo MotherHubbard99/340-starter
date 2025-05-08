@@ -6,14 +6,36 @@
  * Require Statements
  *************************/
 const express = require("express")
+const expressLayouts = require("express-ejs")
 const env = require("dotenv").config()
+//express as a function is assigned to the app variable
 const app = express()
+//route file "static" is imported and stored into the "static" variable
 const static = require("./routes/static")
+
+
+/* ***********************
+ * View Enfine and Templates
+ *************************/
+app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout", "./layouts/layout") //.ejs extensions always default to the views folder so views isn't needed to be added in the file path
+
 
 /* ***********************
  * Routes
  *************************/
+//The resource which has been exported in the static file is now to be used by the app. This single line of code now allows the app to know where the public folder is located and that it and all of its subfolders will be used for static files.
+//By doing things in this manner it allows for all the functionality, while allowing the server.js file to remain uncluttered.
 app.use(static)
+//Index route
+//app.get watches the "get" object for a particular route
+// "/" is the route being watched
+//function(req, res) is a js function that takes the request and response objects as parameters
+//res is the response object and render() is an Express function that will retrieve the specified view of "index" to be sent back to the browser
+app.get("/", function (req, res) {
+  res.render("index", {title: "Home"})
+})
 
 /* ***********************
  * Local Server Information

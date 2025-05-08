@@ -6,7 +6,7 @@
  * Require Statements
  *************************/
 const express = require("express")
-const expressLayouts = require("express-ejs")
+const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 //express as a function is assigned to the app variable
 const app = express()

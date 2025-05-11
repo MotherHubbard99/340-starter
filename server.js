@@ -34,7 +34,7 @@ app.use(static)
 //function(req, res) is a js function that takes the request and response objects as parameters
 //res is the response object and render() is an Express function that will retrieve the specified view of "index" to be sent back to the browser
 app.get("/", function (req, res) {
-  res.render("index", {title: "Home"})
+  res.render("index", { title: "Home" })
 })
 
 /* ***********************

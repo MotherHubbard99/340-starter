@@ -21,14 +21,18 @@ body {
 
 nav {
   background-color: black;
-  margin: 0 auto;
+  width: 100%;
+  display:flex;
+  justify-content: center;
 }
 
 nav ul {
   list-style-type: none;
-  display: flex;
-  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
 }
+
 
 nav li {
   color: white;
@@ -36,6 +40,20 @@ nav li {
   text-align: center;
   padding: 1rem;
   text-decoration: none;
+  text-align: center;
+}
+ 
+nav li:hover {
+  background-color:rgb(99, 234, 110);
+  color: black;
+  border: 2px solid white;
+  transition: 0.3s ease-in-out;
+}
+nav li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 1rem;
 }
 
 .box {
@@ -125,6 +143,12 @@ nav li {
 
   #wrapper {
     background-color: white;
+  }
+
+  nav ul {
+    list-style-type: none;      
+    display: flex;
+    justify-content: space-between; 
   }
 
   .large-view {

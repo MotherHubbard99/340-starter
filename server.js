@@ -8,13 +8,13 @@
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
-//const baseController = require("./controller/baseController")
+const baseController = require("./controller/baseController")
 //express as a function is assigned to the app variable
 const app = express()
 //route file "static" is imported and stored into the "static" variable
 const static = require("./routes/static")
 //Index route
-//app.get("/", baseController.buildHome)
+app.get("/", baseController.buildHome)
 
 
 /* ***********************
@@ -37,7 +37,21 @@ app.use(static)
 //function(req, res) is a js function that takes the request and response objects as parameters
 //res is the response object and render() is an Express function that will retrieve the specified view of "index" to be sent back to the browser
 //Index Route
-//app.get("/", baseController.buildHome)
+app.get("/", baseController.buildHome)
+
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message: err.message,
+    nav
+  })
+})
 
 /* ***********************
  * Local Server Information

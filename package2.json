@@ -1,0 +1,17 @@
+{
+  "name": "340starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.10.0",
+  "dependencies": {
+    "express": "^5.1.0",
+    "package-name": "^0.1.0"
+  }
+}

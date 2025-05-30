@@ -18,7 +18,7 @@ app.get("/", baseController.buildHome)
 
 
 /* ***********************
- * View Enfine and Templates
+ * View Engine and Templates
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)

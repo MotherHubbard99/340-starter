@@ -9,12 +9,14 @@ const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const baseController = require("./controller/baseController")
+//Utilities > index.js
+const utilities = require("./utilities/")
+//Inventory Route
+const inventoryRoute = require("./routes/inventoryRoute");
 //express as a function is assigned to the app variable
 const app = express()
 //route file "static" is imported and stored into the "static" variable
 const static = require("./routes/static")
-//Index route
-app.get("/", baseController.buildHome)
 
 
 /* ***********************
@@ -37,7 +39,11 @@ app.use(static)
 //function(req, res) is a js function that takes the request and response objects as parameters
 //res is the response object and render() is an Express function that will retrieve the specified view of "index" to be sent back to the browser
 //Index Route
-app.get("/", baseController.buildHome)
+app.get("/", utilities.handleErrors(baseController.buildHome))
+//Inventory routes
+app.use("/inv", inventoryRoute)
+//app.use() is an Express function that directs the application to use the resources pass in as parameters
+//inv is short for inventory and a keyword
 
 /* ***********************
 * Express Error Handler

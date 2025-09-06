@@ -4,3 +4,182 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+}
+
+.siteName {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+nav {
+  background-color: black;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+}
+
+
+nav li {
+  color: white;
+  flex-direction: row;
+  text-align: center;
+  padding: 1rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+nav li:hover {
+  background-color: rgb(99, 234, 110);
+  color: black;
+  border: 2px solid white;
+  transition: 0.3s ease-in-out;
+}
+
+nav li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.box {
+  font-size: 1.1rem;
+  position: absolute;
+  /*allows overlapping*/
+  left: 8%;
+  top: 25%;
+  padding: 5px;
+  width: 200px;
+  background-color: rgba(243, 237, 237, 0.7);
+  color: rgb(99, 234, 110);
+}
+
+.box h2 {
+  margin-bottom: 0;
+}
+
+.box ul {
+  list-style: none;
+  /*removes the bullets*/
+  margin-top: 0;
+  margin-left: 0;
+  /*remove the left margin*/
+  padding-left: 0;
+  /*remove the left padding*/
+  padding-top: 0;
+  /*remove the top padding*/
+  padding-bottom: 5px;
+}
+
+.hero {
+  position: relative;
+  padding-bottom: 250px;
+}
+
+.hero picture img {
+  position: absolute;
+  top: 25%;
+  right: 5%;
+}
+
+.box button {
+  padding: 7px;
+  background-color: rgb(99, 234, 110);
+  width: 125px;
+  justify-content: center;
+  border-style: none;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /*create 2 equal columns*/
+  gap: 10px;
+  align-items: stretch;
+  /*ensures cards are all equal height*/
+}
+
+.card img {
+  width: 100%;
+  /*keeps images same width*/
+  height: 100px;
+  /*images have same height*/
+  object-fit: contain;
+  /*prevents img distortion*/
+  padding: 5px 5px;
+  border-style: double;
+  background-color: rgb(99, 234, 110);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 125px;
+  /*all cards have min equal height*/
+  text-align: center;
+  /*justify-content: space-between; /*uniform height*/
+  align-items: center;
+}
+
+.reviews li {
+  line-height: 2;
+}
+
+@media screen and (min-width: 600px) {
+  #border {
+    border: 10px solid black;
+    padding: 80px;
+    /* Ensures content doesn't touch the border */
+    background-image: url("/images/site/checkerboard.jpg");
+    background-size: cover;
+    /* Covers the entire element */
+    background-position: center;
+    /* Centers the background image */
+  }
+
+  #wrapper {
+    background-color: white;
+  }
+
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .large-view {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    /*aligns items at the top*/
+  }
+
+  #upgrades {
+    flex: 1;
+    order: 1;
+  }
+
+  .reviews {
+    flex: 1;
+    order: 2;
+  }
+}

@@ -37,7 +37,12 @@ app.use("/inv", inventoryRoute)
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-const port = process.env.PORT
+//const port = process.env.PORT //this line is causing an error 1 in render
+const PORT = process.env.PORT || 5500; // fallback for local dev
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 const host = process.env.HOST
 
 /* ***********************

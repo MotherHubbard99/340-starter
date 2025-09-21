@@ -1,6 +1,7 @@
 const utilities = require("../utilities/index.js")
 const baseController = {}
 
+//adding a comment to get this file to committ
 baseController.buildHome = async function(req, res){
   const nav = await utilities.getNav()
   res.render("index", {title: "Home", nav})

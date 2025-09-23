@@ -12,6 +12,7 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/basecontroller")
 const inventoryRoute = require("./routes/inventoryRoute")
+const utilities = require("./utilities")
 
 
 /* ***********************
@@ -33,17 +34,37 @@ app.get("/", baseController.buildHome)
 //Inventory routes
 app.use("/inv", inventoryRoute)
 
+// File Not Found Route - must be last route in list
+app.use(async (req, res, next) => {
+  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
+})
+
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message: err.message,
+    nav
+  })
+})
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
  *************************/
 //const port = process.env.PORT //this line is causing an error 1 in render
-const PORT = process.env.PORT || 5500; // fallback for local dev
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+//const host = process.env.HOST
 
-const host = process.env.HOST
+//This is for a render.com deployment
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`)
+})
 
 /* ***********************
  * Log statement to confirm server operation

@@ -30,7 +30,7 @@ app.use(static)
 //app.get('/', function (req, res) {
   //res.render("index", {title: "HomeTest"})
 //})
-app.get("/", baseController.buildHome)
+app.get("/", utilities.handleErrors(baseController.buildHome))
 //Inventory routes
 app.use("/inv", inventoryRoute)
 
@@ -57,7 +57,7 @@ app.use(async (err, req, res, next) => {
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-const port = process.env.PORT //this line is causing an error 1 in render
+const port = process.env.PORT 
 
 const host = process.env.HOST
 

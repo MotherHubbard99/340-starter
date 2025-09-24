@@ -57,12 +57,9 @@ app.use(async (err, req, res, next) => {
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-//const port = process.env.PORT //this line is causing an error 1 in render
+const port = process.env.PORT //this line is causing an error 1 in render
 
-//This is for a render.com deployment
-const port = process.env.PORT || 5500
 const host = process.env.HOST
-
 
 
 /* ***********************
@@ -71,6 +68,4 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
-//app.listen(port, () => {
-  //console.log(`Server running on port ${port}`)
-//})
+

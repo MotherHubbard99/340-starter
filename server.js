@@ -31,7 +31,9 @@ app.use(static)
   //res.render("index", {title: "HomeTest"})
 //})
 app.get("/", utilities.handleErrors(baseController.buildHome))
+
 //Inventory routes
+//app.use() is an Express function that directs the application to use the resources passed in as parameters.
 app.use("/inv", inventoryRoute)
 
 // File Not Found Route - must be last route in list

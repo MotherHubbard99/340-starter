@@ -184,6 +184,43 @@ nav li a {
   }
 }
 
+.vehicle-detail-container {
+  display:flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+.vehicle-image {
+  flex: 1 1 300px;
+  max-width: 400px  ;
+} 
+.vehicle-image img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.vehicle-info {
+  flex: 2 1 500px;
+}
+.vehicle-specs {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vehicle-specs th,
+.vehicle-specs td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.vehicle-specs tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 .inventory-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

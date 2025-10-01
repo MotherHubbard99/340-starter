@@ -4,23 +4,51 @@ const Util = {}
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
-Util.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications()
-  console.log(data)
-  let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
-  data.rows.forEach((row) => {
-    list += "<li>"
-    list +=
-      '<a href="/inv/type/' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      "</a>"
-    list += "</li>"
-  })
+//Util.getNav = async function (req, res, next) {
+Util.getNav = async function(){
+  try {
+    let data = await invModel.getClassifications();
+    let list = "<ul>";
+    list += '<li><a href="/" title="Home page">Home</a></li>';
+
+    if (Array.isArray(data) && data.length > 0) {
+  data.forEach((row) => {
+        list += `<li>
+          <a href="/inv/type/${row.classification_id}" title="See our inventory of ${row.classification_name} vehicles">
+            ${row.classification_name}
+          </a>
+        </li>`;
+      });
+    } else {
+      console.error("No classification data returned from model", data);
+    }
+
+    list += "</ul>";
+    return list;
+  } catch (error) {
+    console.error("Error building navigation:", error);
+    return "<ul><li><a href='/' title='Home page'>Home</a></li></ul>"; // Return a basic nav on error
+  }
+
+//module.exports = router; //causing an error
+  
+  /*Make sure there is data before trying to build*/ 
+  if (data && data.rows) {
+    data.rows.forEach((row) => {
+      list += "<li>"
+      list +=
+        '<a href="/inv/type/' +
+        row.classification_id +
+        '" title="See our inventory of ' +
+        row.classification_name +
+        ' vehicles">' +
+        row.classification_name +
+        "</a>"
+      list += "</li>"
+    });
+  } else {
+    console.error("No classification data returned from model", data);
+  }
   list += "</ul>"
   return list
 }
@@ -37,7 +65,7 @@ Util.buildClassificationGrid = async function(data){
       grid += '<li>'
       grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
       + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'details"><img src="' + vehicle.inv_thumbnail
+        + ' details"><img src="/images/' + vehicle.inv_thumbnail
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
       +' on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
@@ -57,6 +85,37 @@ Util.buildClassificationGrid = async function(data){
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return grid
+}
+/* **************************************
+* Build the vehicle detail view HTML
+* ************************************ */
+Util.buildVehicleDetail = async function (data) {
+   // Sanitize the image path to remove any accidental duplication
+  const cleanPath = data.inv_image.replace(/^(\/?images\/)?vehicles\/vehicles\//, '$1vehicles/');
+  
+   //make and model as a header
+  let detail = '<h1>' + data.inv_make + ' ' + data.inv_model + '</h1>';
+
+  detail += '<div class="vehicle-detail-container">';
+  
+  //image
+  detail += '<div class="vehicle-image">';
+    detail += '<img src="/images/' + data.inv_image + '" alt="Image of ' + data.inv_make + ' ' + data.inv_model + '" />';
+  detail += '</div>';
+  detail += '<div class="vehicle-info">';
+  //mileage
+    detail += '<h2>Mileage: ' + new Intl.NumberFormat('en-US').format(data.inv_mileage) + '</h2>';
+    //create a table for the rest of the data
+    detail += '<table class = "vehicle-specs">';
+    //price, description, color, year
+      detail += '<tr><th>Year:</th><td> ' + data.inv_year + '</td></tr>';
+      detail += '<tr><th>Color:</th><td> ' + data.inv_color + '</td></tr>';
+      detail += '<tr><th>Price:</th><td> $' + new Intl.NumberFormat('en-US').format(data.inv_price) + '</td></tr>';
+      detail += '<tr><th>Description:</th><td> ' + data.inv_description + '</td></tr>';
+    detail += '</table>';
+  detail += '</div>'; //close vehicle-info
+  detail += '</div>';
+  return detail;
 }
 
 /* ****************************************

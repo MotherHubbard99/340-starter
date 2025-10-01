@@ -4,7 +4,16 @@ const pool = require("../database/index.js")
  *  Get all classification data
  * ************************** */
 async function getClassifications(){
-  return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
+  /*return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")*/
+  try {
+    const data = await pool.query(
+      "SELECT * FROM public.classification ORDER BY classification_name"
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getclassifications error " + error)
+    return []  //returns an empty array so there is no error
+  }
 }
 
 /* ***************************
@@ -21,8 +30,29 @@ async function getInventoryByClassificationId(classification_id) {
     )
     return data.rows
   } catch (error) {
-    console.error("getclassificationsbyid error " + error)
+    console.error("getInventoryByClassificationId error " + error)
+    return []
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId};
+/* ***************************
+  *  Get a single vehiclwe by inv_id
+  * ************************** */
+async function getVehicleById(inv_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory AS i
+      JOIN public.classification AS c
+      ON i.classification_id = c.classification_id
+      WHERE i.inv_id = $1`,
+      [inv_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getVehicleById error " + error)
+    return null
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById};
+

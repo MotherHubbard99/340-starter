@@ -2,6 +2,9 @@
 const utilities = require(".")
   const { body, validationResult } = require("express-validator")
 const validate = {}
+/*for the email check function */
+const accountModel = require("../models/account-model")
+
 
 /*  **********************************
   *  Registration Data Validation Rules
@@ -31,8 +34,14 @@ const validate = {}
       .notEmpty()
       .isEmail()
       .normalizeEmail() // refer to validator.js docs
-      .withMessage("A valid email is required."),
-  
+      .withMessage("A valid email is required.")
+      .custom(async (account_email) => {
+        const emailExists = await accountModel.checkExistingEmail(account_email)
+       if (emailExists){
+          throw new Error("Email exists. Please log in or use different email")
+    }
+  }),
+
       // password is required and must be strong password
       body("account_password")
         .trim()

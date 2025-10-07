@@ -2,15 +2,17 @@
 <h2>All input fields are required</h2>
 
 <div id="register-container">
-    <form action="/account/register" method="POST">
+    <form id="registerForm" action="/account/register" method="POST">
         <label for="firstName">First Name</label>
-        <input type="text" name="account_firstname" id="firstName" required placeholder="Enter your first name">
+        <input type="text" name="account_firstname" id="firstName" required value="<%= locals.account_firstname %>" placeholder="Enter your first name">
        
         <label for="lastName">Last Name</label>
-        <input type="text" name="account_lastname" id="lastName" required placeholder="Enter your last name">
+        <input type="text" name="account_lastname" id="lastName" required value="<%= locals.account_lastname %>"
+        placeholder="Enter your last name">
         
         <label for="accountEmail">Email</label>
-        <input type="email" name="account_email" id="accountEmail" required placeholder="Enter a valid email address">
+        <input type="email" name="account_email" id="accountEmail" required value="<%= locals.account_email %>"
+        placeholder="Enter a valid email address">
 
         <label for="accountPassword">Password</label>
         <span>Passwords must be at least 12 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.</span>

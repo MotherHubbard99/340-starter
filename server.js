@@ -12,8 +12,40 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/basecontroller")
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
 const utilities = require("./utilities")
+//require the session package and DB conncection
+const session = require("express-session")
+const pool = require("./database/")
+const bodyParser = require("body-parser")
 
+/* *********************** */
+/* Middleware */
+/*************************/
+/* invokes the app.use() function and indicates the session is to be applied */
+ app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+   secret: process.env.SESSION_SECRET,
+  /* This session for the session in the database is typically "false". But, because we are using "flash" messages we need to resave the session table after each message, so it must be set to "true". */
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+ }))
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function (req, res, next) {
+  /*  "locals" option and a name of "messages". This allows any message to be stored into the response, making it available in a view. */
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
+// for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) 
 
 /* ***********************
  * View Engine and Templates
@@ -35,6 +67,9 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 //Inventory routes
 //app.use() is an Express function that directs the application to use the resources passed in as parameters.
 app.use("/inv", inventoryRoute)
+
+//Acount login routes
+app.use("/account", accountRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

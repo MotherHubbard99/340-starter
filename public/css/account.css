@@ -1,0 +1,81 @@
+/* Header styles */
+h1 {
+    padding: 10px 20px;
+    text-align: center;
+}
+#login-container, #register-container {
+    font-size: large;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 32px 24px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: grey;
+    border: 10px solid rgb(99, 234, 110);
+    color: white;
+}
+/* Form labels */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+span {
+    color: rgb(99, 234, 110);
+    font-size: small;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+/* login button */
+button {
+    margin-top: 16px;
+    display: block;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    color: rgb(99, 234, 110);
+    background-color: white;
+    font-size: large;
+}
+/* Input fields */
+input[type="email"],
+input[type="password"], input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 4px solid rgb(99, 234, 110);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+/* Show/Hide Password toggle button */
+#pwButton {
+    cursor: pointer;
+    color: rgb(99, 234, 110);
+    font-size: small;
+    margin-top: -12px;
+    margin-bottom: 8px;
+    display: block;
+    text-align: right;
+}
+
+/* Registration link */
+.register-link {
+    margin-top: 16px;
+    text-align: center;
+    justify-content: center;
+}
+
+.flash-message {
+    color: rgb(99, 234, 110);
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}

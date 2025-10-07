@@ -1,0 +1,26 @@
+<% if (notice && notice.length> 0) { %>
+    <div class="flash-message">
+        <p>
+            <%= notice[0] %>
+        </p>
+    </div>
+    <% } %>
+
+<h1>Account Login</h1>
+
+<div id ="login-container">
+    <form action = "/account/login" method="POST">
+        <label for="accountEmail">Email</label>
+        <input type="email" name="account_email" id="accountEmail" required placeholder="Enter your email">
+
+        <label for="accountPassword">Password</label>
+        <span>Passwords must be at least 12 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.</span>
+        <input type="password" name="account_password" id="accountPassword" required placeholder="Enter your password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        <button type="submit" id="loginbtn">Login</button>
+        <input type="hidden" name="action" value="login">
+    </form>
+    <div class="register-link">
+        <p>Not a member yet?</p>
+        <a href="/account/register"><Sign-up>Sign-up</Sign-up></a>
+    </div>
+</div>

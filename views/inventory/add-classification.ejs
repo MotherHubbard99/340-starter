@@ -1,0 +1,25 @@
+<% if (message) { %>
+    <p class="flash-message">
+        <%= message %>
+    </p>
+    <% } %>
+
+
+<h1>Add Vehicle Classification</h1>
+
+    <div class="New-classification">
+    <form action="/inv/add-classification" method="POST">
+        <label for="classificationName">Classification Name</label>
+        <input type="text" 
+        name="classification_name" 
+        id="classification_name" 
+        required 
+        placeholder="Enter Classification Name"
+        pattern="^[A-Za-z\s]{1,30}$" 
+        title="Classification name should only contain letters and numbers">
+        
+        <button type="submit" id="addClassBtn">Add Classification</button>
+        <input type="hidden" name="action" value="add-classification">
+    </form>
+</div>
+

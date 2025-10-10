@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
+const utilities = require("../utilities");
+
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -120,6 +122,42 @@ Util.buildVehicleDetail = async function (data) {
   detail += '</div>'; // close vehicle-detail-container
   return detail;
 }
+
+/* ****************************************
+ * Add Inventory drop-down box
+/* ****************************************/
+Util.buildClassificationList = async function (classification_id = null) {
+  const data = await invModel.getClassifications()
+  console.log("getClassifications() returned:", data);
+  // use data directly, not data.rows
+  if (!Array.isArray(data)) {
+    console.error("Invalid classification data:", data);
+    return '<select><option value="">Error loading classifications</option></select>';
+  }
+
+    let classificationList = '<select name="classification_id" id="classificationList" required">';
+    classificationList += "<option value=''>Choose a Classification</option>"
+      //classificationList += '<option value="">Custom</option>';
+      //classificationList += '<option value="">Sedan</option>';
+      //classificationList += '<option value="">Sport</option>';
+      //classificationList += '<option value="">SUV</option>';
+     // classificationList += '<option value="">Truck</option>';
+
+  //Dynamic options from DB
+    data.forEach((row) => {
+      classificationList += '<option value="' + row.classification_id + '"'
+      if (
+        classification_id != null &&
+        row.classification_id == classification_id
+      ) {
+        classificationList += " selected "
+      }
+      classificationList += ">" + row.classification_name + "</option>"
+    })
+    classificationList += "</select>"
+    return classificationList
+  }
+
 
 /* ****************************************
  * Middleware For Handling Errors

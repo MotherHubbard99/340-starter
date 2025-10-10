@@ -1,9 +1,13 @@
 /* Header styles */
-h1 {
+h1, h2 {
     padding: 10px 20px;
     text-align: center;
 }
-#login-container, #register-container {
+
+h2 {
+    color:rgb(99, 234, 110);
+}
+#login-container, #register-container, .addInv, .manage-links, .New-classification {
     font-size: large;
     max-width: 400px;
     margin: 40px auto;
@@ -22,6 +26,14 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
+}
+
+#classificationList {
+    width: 300px; /* Makes it wider */
+    height: 40px;
+    font-size: 1.1rem;
+    padding: 5px 10px; /* Adds spacing inside */
+    margin-bottom: 8px;
 }
 
 span {
@@ -46,7 +58,7 @@ button {
 }
 /* Input fields */
 input[type="email"],
-input[type="password"], input[type="text"] {
+input[type="password"], input[type="text"], input[type="number"] {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;

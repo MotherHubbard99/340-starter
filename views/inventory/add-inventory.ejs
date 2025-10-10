@@ -1,0 +1,55 @@
+<% if (message && Array.isArray(message)) { %>
+    <ul class="flash-message">
+        <% message.forEach(msg=> { %>
+            <li>
+                <%= msg %>
+            </li>
+            <% }) %>
+    </ul>
+    <% } else if (message) { %>
+        <p class="flash-message">
+            <%= message %>
+        </p>
+        <% } %>
+
+<h1>Add Inventory</h1>
+<h2>ALL FIELDS ARE REQUIRED!</h2>
+
+<div class="addInv">
+    <Add New Inventory>
+
+    <form action="/inv/add-inventory" method="POST">
+        <label for="classification_id">Choose a Classification</label>
+            <%- classificationList %>
+
+        <label for="inv_make">Make</label>
+        <input type="text" name="inv_make" id="inv_make" required minLength="3" placeholder="Min of 3 characters">
+
+        <label for="inv_model">Model</label>
+        <input type="text" name="inv_model" id="inv_model" required minlength="3" placeholder="Min of 3 characters">
+
+        <label for="inv_year">Year</label>
+        <input type="text" name="inv_year" id="inv_year" required min="1900" max="2050" placeholder="numbers only">
+
+        <label for="inv_description">Description</label>
+        <input type="text" name="inv_description" id="inv_description" required placeholder="Min 3 characters">
+
+        <label for="inv_image">Add an image</label>
+        <input type="text" name="inv_image" id="inv_image" required placeholder="images/vehicles/no-image.png">
+
+        <label for="inv_thumbnail">Add an image</label>
+        <input type="text" name="inv_thumbnail" id="inv_thumbnail" required placeholder="images/vehicles/no-imagetn.png">
+        
+        <label for="inv_price">Price</label>
+        <input type="number" name="inv_price" id="inv_price" required placeholder="Enter price">
+
+        <label for="inv_miles">Miles</label>
+        <input type="number" name="inv_miles" id="inv_miles" required placeholder="numbers only">
+
+        <label for="inv_color">Color</label>
+        <input type="text" name="inv_color" id="inv_color" required minlength="3" placeholder="Min of 3 characters">
+
+        <button type="submit" id="addClassBtn">Add Inventory</button>
+        <input type="hidden" name="action" value="add-inventory">
+    </form>
+</div>

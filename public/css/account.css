@@ -7,7 +7,7 @@ h1, h2 {
 h2 {
     color:rgb(99, 234, 110);
 }
-#login-container, #register-container, .addInv, .manage-links, .New-classification {
+#login-container, #register-container, .addInv, .manage-links, .New-classification, .manage-inv, .editInv, .deleteInv {
     font-size: large;
     max-width: 400px;
     margin: 40px auto;
@@ -21,11 +21,35 @@ h2 {
     border: 10px solid rgb(99, 234, 110);
     color: white;
 }
+
+.deleteInv p {
+    color: orange;
+}
+
+.manage-links ul {
+    list-style-type: none;
+}
+
+.manage-links li {
+    padding: 10px;
+}
+
 /* Form labels */
 label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
+}
+
+/*table*/
+.manage-inv {
+    border-collapse: collapse; /*ensure that the borders dont double up*/
+}
+
+th, td {
+    border: 1px solid rgb(99, 234, 110);
+    padding: 10px;
+    text-align: left;
 }
 
 #classificationList {

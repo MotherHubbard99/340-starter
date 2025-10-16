@@ -1,0 +1,61 @@
+<% if (message && Array.isArray(message)) { %>
+    <ul class="flash-message">
+        <% message.forEach(msg=> { %>
+            <li>
+                <%= msg %>
+            </li>
+            <% }) %>
+    </ul>
+    <% } else if (message) { %>
+        <p class="flash-message">
+            <%= message %>
+        </p>
+        <% } %>
+
+<h1>Modify Inventory</h1>
+<h2>ALL FIELDS ARE REQUIRED!</h2>
+
+<div class="editInv">
+    <Edit Inventory>
+
+    <form action="/inv/update" method="post", id="updateForm">
+        <label for="classification_id">Choose a Classification</label>
+            <%- classificationList %>
+
+        <label for="inv_make">Make</label>
+        <input type="text" name="inv_make" id="inv_make" required minLength="3" value="<%= inv_make %>">
+
+        <label for="inv_model">Model</label>
+        <input type="text" name="inv_model" id="inv_model" required minlength="3" value="<%= inv_model %>">
+
+        <label for="inv_year">Year</label>
+        <input type="text" name="inv_year" id="inv_year" required min="1900" max="2050" value="<%= inv_year %>">
+
+        <label for="inv_description">Description</label>
+        <input type="text" name="inv_description" id="inv_description" required value="<%= inv_description %>">
+
+        <label for="inv_image">Add an image</label>
+        <input type="text" name="inv_image" id="inv_image" required value="<%= inv_image %>">
+
+        <label for="inv_thumbnail">Add an image</label>
+        <input type="text" name="inv_thumbnail" id="inv_thumbnail" required value="<%= inv_thumbnail %>">
+        
+        <label for="inv_price">Price</label>
+        <input type="number" name="inv_price" id="inv_price" required value="<%= inv_price %>">
+
+        <label for="inv_miles">Miles</label>
+        <input type="number" name="inv_miles" id="inv_miles" required value="<%= inv_miles %>">
+
+        <label for="inv_color">Color</label>
+        <input type="text" name="inv_color" id="inv_color" required minlength="3" value="<%= inv_color %>">
+
+        <button type="submit" id="editClassBtn" disabled>Update Vehicle</button>
+        <input type="hidden" 
+        name="inv_id" 
+        <% if(locals.inv_id) { 
+            %> value="<%= locals.inv_id %>"
+        <% } %>>
+    </form>
+</div>
+//link the inv-update file here so it requires the user to make a change before the inventory is updated
+<script src="/js/inv-update.js"></script>

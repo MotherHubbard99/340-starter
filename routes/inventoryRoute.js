@@ -4,16 +4,7 @@ const router = new express.Router()
 const utilities = require("../utilities"); 
 const invController = require("../controllers/invController");
 const inventoryValidate = require("../utilities/inventory-validation")
-const addinvValidate = require("../utilities/inventory-validation")
-//const handleErrors = require("../utilities").handleErrors;
-const handleErrors = (err, req, res, next) => {
-  console.error("Error at:", req.originalUrl);
-  console.error(err.stack);
-  res.status(500).render("errors/500", {
-    title: "Server Error",
-    message: "Sorry, we appear to have lost that page."
-  });
-};
+const handleErrors = require("../utilities").handleErrors;
 
 
 // Route to build inventory by classification view
@@ -66,6 +57,25 @@ invController.buildAddInventoryView = async function (req, res, next) {
   }
 };
 
+//route to edit/modify/update inventory in the management view
+router.get(
+  "/edit/:inv_id",
+  invController.buildEditInventoryView,
+  handleErrors
+)
+
+
+//get the inventory for the public/js/inventory.js file: Populated 
+router.get(
+  "/getInventory/:classification_id", invController.getInventoryJSON, handleErrors)
+
+//DELETE inventory by id
+//route to edit/modify/update inventory in the management view
+router.get(
+  "/delete/:inv_id",
+  invController.deleteInventory,
+  handleErrors
+)
 
 //Process add classification
 router.post(
@@ -74,6 +84,7 @@ router.post(
   inventoryValidate.validateAddClassification,
   invController.insertClassification, 
 );
+
 //add new inventory
 router.post(
   "/add-inventory",
@@ -82,4 +93,45 @@ router.post(
   invController.insertInventory
 )
 
+//Edit/modify/update vehicle inventory info
+//update matches the value from the form's action atribue in edit-inventory
+router.post(
+  "/update/",
+  inventoryValidate.updateInventoryRules,
+  inventoryValidate.checkUpdateData,
+  invController.updateInventory,
+  handleErrors
+)
+
+//DELETE inventory
+router.post(
+  "/delete/:inv_id",
+  invController.deleteInventoryFinal,
+  handleErrors
+)
+
+//Admin and employee only routes for certain access
+router.get("/add-classification", utilities.checkAccountType, invController.buildAddClassificationView)
+router.post(
+  "/add-classification",
+  utilities.checkAccountType,
+  inventoryValidate.addClassification, 
+  inventoryValidate.validateAddClassification,
+  invController.insertClassification
+)
+
+
+router.get("/add-inventory", utilities.checkAccountType, invController.buildAddInventoryView)
+router.post("/add-inventory", utilities.checkAccountType, invController.insertInventory)
+
+console.log("invController.addInventory:", invController.addInventory)
+
+router.get("/edit/:inv_id", utilities.checkAccountType, invController.buildEditInventoryView)
+
+router.post("/update/", utilities.checkAccountType, inventoryValidate.updateInventoryRules, inventoryValidate.checkUpdateData, invController.updateInventory)
+
+router.post("/delete/", utilities.checkAccountType, invController.deleteInventoryFinal)
+
+
 module.exports = router;
+

@@ -2,39 +2,65 @@
 const express = require("express")
 const router = new express.Router() 
 const accountController = require("../controllers/accountController")
-const handleErrors = require("../utilities/").handleErrors
-const regValidate = require('../utilities/account-validation')
+const utilities = require("../utilities/")
+const validate = require("../utilities/inventory-validation")
+const { handleErrors } = utilities
+const regValidate = require("../utilities/account-validation")
+
+
+//for testing purposes
+console.log("handleErrors:", handleErrors)
+console.log("accountLogin:", accountController.accountLogin)
 
 
 // Route that will be sent when the My Account link is selected
-router.get("/", accountController.accountManagement, handleErrors)
+router.get("/", utilities.checkLogin, handleErrors(accountController.accountManagement))
+
 // Route must use a function from the account controller
-router.get("/login", accountController.buildLogin, handleErrors)
+router.get("/login", handleErrors(accountController.buildLogin))
 
 //Route that will be selected when the register link is selected
-router.get("/register", accountController.buildRegister, handleErrors)
+router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 //POST route that will process the registration form
 router.post(
   "/register",
   regValidate.registrationRules(), 
-    regValidate.checkRegData,   
-    accountController.registerAccount, handleErrors)
-  
+  regValidate.checkRegData,   
+  handleErrors(accountController.registerAccount)
+)
+
 // Process the login attempt
 router.post(
   "/login",
-  (req, res) => {
-    res.status(200).send('login process')
-  }
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  handleErrors(accountController.accountLogin)
 )
 
-// Process the registration attempt
+//updating Account info
+router.get("/update/:account_id", utilities.checkLogin, accountController.buildUpdateAccount)
+
+// GET: Show update form
+router.get("/update/:account_id", utilities.checkLogin, accountController.buildUpdateAccount)
+
+//POST: Handle account info update
 router.post(
-  "/register",
-  (req, res) => {
-    res.status(200).send('registration process')
-  }
+  "/update",
+  validate.updateAccountRules,
+  validate.checkUpdateData,
+  accountController.updateAccount
 )
+
+//POST: handle password change
+router.post(
+  "/update-password",
+  regValidate.passwordChangeRules(),
+  regValidate.checkPasswordChange,
+  accountController.updatePassword
+)
+
+//Logout
+router.get("/logout", accountController.logout)
 
 module.exports = router;

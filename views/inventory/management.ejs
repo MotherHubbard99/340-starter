@@ -1,4 +1,11 @@
-<%- messages() %>
+<% if (message && message.length> 0) { %>
+    <div class="flash-message">
+        <p>
+            <%= message[0] %>
+        </p>
+    </div>
+    <% } %>
+
 
     <h1>Vehicle Management</h1>
 
@@ -8,3 +15,19 @@
             <li><a href="/inv/add-inventory">Add New Vehicle</a></li>
         </ul>
     </div>  
+    <div class = "manage-inv">
+        <h2>Manage Inventory</h2>
+        <p>Please select a classification from the list to see the items that belong to it.</p>
+    
+        <%- classificationList %>
+
+
+
+    <!-- all of the interior table elements and content will be created by JS then injected into the table element using DOM manipulation in the inventory.js file -->
+        <table id="inventoryDisplay"></table>
+
+        <noscript>JavaScript must be enabled to use this page.</noscript>
+
+    </div>
+
+    <script src="/js/inventory.js"></script>

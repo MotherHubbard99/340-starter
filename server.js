@@ -18,6 +18,7 @@ const utilities = require("./utilities")
 const session = require("express-session")
 const pool = require("./database/")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* *********************** */
 /* Middleware */
@@ -46,6 +47,23 @@ app.use(function (req, res, next) {
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) 
+
+//cookies
+app.use(cookieParser())
+
+//tells Express that anything inside the public folder can be served directly via URL
+const path = require("path")
+app.use(express.static(path.join(__dirname, "public")))
+
+/*JSON Web Token in index.js*/
+app.use(utilities.checkJWTToken)
+
+//store if the user has logged in, so we know what to show and which views they have access to
+app.use((req, res, next) => {
+  res.locals.loggedin = req.session.loggedin;
+  res.locals.account_firstname = req.session.account_firstname;
+  next();
+})
 
 /* ***********************
  * View Engine and Templates

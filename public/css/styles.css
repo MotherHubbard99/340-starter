@@ -245,6 +245,10 @@ nav li a {
   transition: transform 0.3s ease;
 }
 
+#tools a {
+  padding: 10px
+}
+
 @media screen and (min-width: 600px) {
   #border {
     border: 10px solid black;

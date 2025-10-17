@@ -124,8 +124,6 @@ router.post(
 router.get("/add-inventory", utilities.checkAccountType, invController.buildAddInventoryView)
 router.post("/add-inventory", utilities.checkAccountType, invController.insertInventory)
 
-console.log("invController.addInventory:", invController.addInventory)
-
 router.get("/edit/:inv_id", utilities.checkAccountType, invController.buildEditInventoryView)
 
 router.post("/update/", utilities.checkAccountType, inventoryValidate.updateInventoryRules, inventoryValidate.checkUpdateData, invController.updateInventory)

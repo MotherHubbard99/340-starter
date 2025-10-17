@@ -36,6 +36,12 @@ const cookieParser = require("cookie-parser")
   name: 'sessionId',
  }))
 
+//confirm session is working
+ app.use((req, res, next) => {
+  console.log("Session object:", req.session)
+  next()
+})
+
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function (req, res, next) {
@@ -44,16 +50,17 @@ app.use(function (req, res, next) {
   next()
 })
 
+
+//tells Express that anything inside the public folder can be served directly via URL
+const path = require("path")
+app.use(express.static(path.join(__dirname, "public")))
+
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) 
 
 //cookies
 app.use(cookieParser())
-
-//tells Express that anything inside the public folder can be served directly via URL
-const path = require("path")
-app.use(express.static(path.join(__dirname, "public")))
 
 /*JSON Web Token in index.js*/
 app.use(utilities.checkJWTToken)

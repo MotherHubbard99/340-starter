@@ -4,7 +4,7 @@ const utilities = require("../utilities");
 /*JSON Web Token*/
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
-const checkAccountType = utilities.checkAccountType
+//const checkAccountType = utilities.checkAccountType
 
 /* ************************
  * Constructs the nav HTML unordered list

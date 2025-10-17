@@ -38,6 +38,10 @@ router.post(
   handleErrors(accountController.accountLogin)
 )
 
+console.log("passwordChangeRules:", regValidate.passwordChangeRules)
+console.log("checkPasswordChange:", regValidate.checkPasswordChange)
+console.log("updatePassword:", accountController.updatePassword)
+
 //updating Account info
 router.get("/update/:account_id", utilities.checkLogin, accountController.buildUpdateAccount)
 
@@ -47,8 +51,8 @@ router.get("/update/:account_id", utilities.checkLogin, accountController.buildU
 //POST: Handle account info update
 router.post(
   "/update",
-  validate.updateAccountRules,
-  validate.checkUpdateData,
+  regValidate.updateAccountRules,
+  regValidate.checkUpdateData,
   accountController.updateAccount
 )
 

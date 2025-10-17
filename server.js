@@ -124,9 +124,9 @@ app.use(async (err, req, res, next) => {
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-const port = process.env.PORT 
+const port = process.env.PORT || 5500
 
-const host = process.env.HOST
+const host = process.env.HOST || 'localhost'
 
 
 /* ***********************

@@ -44,6 +44,7 @@ console.log("updatePassword:", accountController.updatePassword)
 
 //updating Account info
 router.get("/update/:account_id", utilities.checkLogin, accountController.buildUpdateAccount)
+//router.get("/update-account", utilities.checkLogin, accountController.buildUpdateAccount)
 
 // GET: Show update form
 router.get("/update/:account_id", utilities.checkLogin, accountController.buildUpdateAccount)

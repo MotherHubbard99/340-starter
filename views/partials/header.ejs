@@ -5,7 +5,7 @@
     <div id="tools">
         <% if (loggedin) { %>
             <span>Welcome <%= account_firstname %></span>
-            <a title="Manage your account" href="/management/">Account Management</a>
+            <a title="Manage your account" href="/account/">Account Management</a>
             <a title="Click to log out" href="/account/logout">Logout</a>
         <% } else { %>
             <a title="Click to log in" href="/account/login">My Account</a>

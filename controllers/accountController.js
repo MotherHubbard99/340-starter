@@ -30,8 +30,15 @@ const buildLogin = async (req, res, next) => {
 const accountManagement = async (req, res, next) => {
   try {
     const nav = await utilities.getNav()
-    const accountData = res.local.accountData // from JWT middleware in index.js
+    const accountData = res.locals.accountData // from JWT middleware in index.js
     const notice = req.flash("notice") //get the flash messages
+
+    const fs = require("fs")
+    const path = require("path")
+    const viewPath = path.join(__dirname, "../views/account/account.ejs")
+    console.log("View exists:", fs.existsSync(viewPath))
+
+
     res.render("account/account", {
       title: "My Account",
       nav, 
@@ -155,12 +162,14 @@ async function accountLogin(req, res) {
 async function buildUpdateAccount (req, res) {
   const nav = await utilities.getNav()
   const account_id = req.params.account_id
-  const accountData = await accountModel.getACcountByID(account_id)
-
+  const accountData = await accountModel.getAccountById(account_id)
+  const notice = req.flash("notice")
+  
   res.render("account/update-account", {
     title: "Update Account",
     nav,
-    accountData
+    accountData,
+    notice
   })
 }
 

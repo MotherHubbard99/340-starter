@@ -87,4 +87,4 @@ async function updatePassword(account_id, hashedPassword) {
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail} //exports the two functions for use in other files.
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword} //exports the two functions for use in other files.

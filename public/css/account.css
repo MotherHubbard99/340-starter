@@ -7,7 +7,7 @@ h1, h2 {
 h2 {
     color:rgb(99, 234, 110);
 }
-#login-container, #register-container, .addInv, .manage-links, .New-classification, .manage-inv, .editInv, .deleteInv {
+#login-container, #register-container, .addInv, .manage-links, .New-classification, .manage-inv, .editInv, .deleteInv, .account-dashboard, .account-update, .form-pw {
     font-size: large;
     max-width: 400px;
     margin: 40px auto;
@@ -114,4 +114,9 @@ input[type="password"], input[type="text"], input[type="number"] {
     text-align: center;
     border-radius: 5px;
     margin-bottom: 20px;
+}
+
+.update-account-button, .update-password-button {
+    height: auto;
+    font-size: 1.2rem;
 }
